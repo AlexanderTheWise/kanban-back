@@ -1,0 +1,38 @@
+#!/usr/bin/env sh
+
+. "$(dirname -- "$0")/_/husky.sh"
+
+exec 1>&2
+exec < /dev/tty
+
+red='\033[0;31m'
+green='\033[0;32m'
+yellow='\033[0;33m'
+no_color='\033[0m'
+
+echo -e "\n${yellow}Executing pre-commit hook...${no_color}\n"
+
+current_branch=$(git rev-parse --abbrev-ref HEAD)
+FILES_PATTERN='\.(ts)(\..+)?$'
+
+if [ "$current_branch" = "master" ]; then
+    echo -e "\n${red}COMMIT REJECTED! You can't commit directly to master branch.${no_color}\n"
+    exit 1
+fi
+
+if git diff --cached --name-only | grep -E $FILES_PATTERN | xargs grep --with-filename -n 'console\.(clear|dir|log|info|warn|error)' | grep -v '//'; then
+    echo -e "\n${red}COMMIT REJECTED! Found forbidden console references. Please remove them before committing.${no_color}\n"
+    exit 1
+fi
+
+if git diff --cached --name-only | grep -E $FILES_PATTERN | xargs grep --with-filename -n 'debugger' | grep -v '//'; then
+    echo -e "\n${red}COMMIT REJECTED! Found 'debugger' statements. Please remove them before committing.${no_color}\n"
+    exit 1
+fi
+
+npx lint-staged;
+
+echo -e "${green}No forbidden console references or 'debugger' statements found!${no_color}\n"
+echo -e "${green}Git pre-commit hook was successful!${no_color}\n"
+
+exit 0

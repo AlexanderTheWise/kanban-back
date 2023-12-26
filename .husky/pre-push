@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+branch_name=$(git rev-parse --abbrev-ref HEAD)
+
+if [[ ! "$branch_name" =~ ^(feature/|hotfix/|bugfix/) ]]; then
+        echo "Error: The branch name must start with 'feature/', 'hotfix/', or 'bugfix/'."
+        exit 1
+fi
+
+exit 0

@@ -1,0 +1,29 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+red='\033[0;31m'
+green='\033[0;32m'
+yellow='\033[0;33m'
+no_color='\033[0m'
+
+commit_msg_file=$1 
+commit_msg=$(cat "$commit_msg_file")
+first_char=$(echo -n "$commit_msg" | head -c 1)
+
+echo -e "\n${yellow}Executing commit-msg hook.${no_color}\n"
+
+if [[ "$first_char" != "$(echo "$first_char" | tr '[:lower:]' '[:upper:]')" ]]; then
+    echo -e "\n${red}Error: The commit message must start with an uppercase letter.${no_color}\n"
+    exit 1
+fi
+
+commit_length=$(echo -n "$commit_msg" | wc -c)
+
+if ((commit_length < 10 || commit_length > 72)); then
+    echo -e "\n${red}Error: The commit message must have a length between 10 and 72 characters.${no_color}\n"
+    exit 1
+fi
+
+echo -e "\n${green}COMMIT-MSG successful.${no_color}\n"
+
+exit 0
