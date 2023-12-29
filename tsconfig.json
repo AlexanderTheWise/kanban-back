@@ -1,14 +1,15 @@
 {
   "compilerOptions": {
     "module": "ESNext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
     "target": "ESNext",
     "outDir": "./dist/",
+    "moduleResolution": "node",
     "noImplicitAny": true,
+    "resolveJsonModule": true,
     "strictNullChecks": true,
+    "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true
+    "allowSyntheticDefaultImports": true
   },
   "exclude": ["src/**/*.spec.ts"]
 }
