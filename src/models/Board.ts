@@ -1,11 +1,12 @@
 import { type HydratedDocument, Schema, model } from "mongoose";
 import { type IBoard } from "./types";
-import Column from "./Column";
+import { Column } from "./Column";
 
 const boardSchema = new Schema<IBoard>({
   user: {
     type: Schema.Types.ObjectId,
     ref: "User",
+    required: true,
   },
   title: {
     type: Schema.Types.String,
@@ -26,6 +27,4 @@ boardSchema.post(
   },
 );
 
-const Board = model("Board", boardSchema, "boards");
-
-export default Board;
+export const Board = model("Board", boardSchema, "boards");
