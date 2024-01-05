@@ -13,7 +13,7 @@ const subtaskSchema = new Schema<ISubtask>({
 });
 
 const taskSchema = new Schema<ITask>({
-  column: { type: Schema.Types.ObjectId, ref: "Column" },
+  column: { type: Schema.Types.ObjectId, ref: "Column", required: true },
   title: {
     type: Schema.Types.String,
     required: true,
@@ -25,6 +25,6 @@ const taskSchema = new Schema<ITask>({
   subtasks: [subtaskSchema],
 });
 
-const Task = model("Task", taskSchema, "tasks");
+export const Task = model("Task", taskSchema, "tasks");
 
 export default Task;

@@ -1,4 +1,4 @@
-import { type Types } from "mongoose";
+import { type Model, type Types } from "mongoose";
 
 export interface ISubtask {
   title: string;
@@ -27,4 +27,12 @@ export interface IBoard {
 export interface IUser {
   email: string;
   password: string;
+  boards: Types.Array<Types.ObjectId>;
+}
+
+export interface IModels {
+  User: Model<IUser>;
+  Board: Model<IBoard>;
+  Column: Model<IColumn>;
+  Task: Model<ITask>;
 }
