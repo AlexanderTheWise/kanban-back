@@ -13,3 +13,5 @@ export const makeTaskDb = (Task: IModels["Task"]) => {
 
   return Object.freeze({ insert, update, remove, find });
 };
+
+export type TaskDb = ReturnType<typeof makeTaskDb>;

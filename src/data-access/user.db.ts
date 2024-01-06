@@ -2,7 +2,7 @@ import { type UpdateQuery } from "mongoose";
 import { type IModels, type IUser } from "../models";
 
 export const makeUserDb = (User: IModels["User"]) => {
-  const insert = async (user: IUser) => User.create(user);
+  const insert = async (user: Omit<IUser, "columns">) => User.create(user);
 
   const update = async (_id: string, updateQuery: UpdateQuery<IUser>) =>
     User.updateOne({ _id }, updateQuery);
@@ -13,3 +13,5 @@ export const makeUserDb = (User: IModels["User"]) => {
 
   return Object.freeze({ insert, update, remove, find });
 };
+
+export type UserDb = ReturnType<typeof makeUserDb>;

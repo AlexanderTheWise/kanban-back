@@ -2,7 +2,7 @@ import { type UpdateQuery } from "mongoose";
 import { type IBoard, type IModels } from "../models";
 
 export const makeBoardDb = (Board: IModels["Board"]) => {
-  const insert = async (board: IBoard) => Board.create(board);
+  const insert = async (board: Omit<IBoard, "columns">) => Board.create(board);
 
   const update = async (_id: string, updateQuery: UpdateQuery<IBoard>) =>
     Board.updateOne({ _id }, updateQuery);
@@ -13,3 +13,5 @@ export const makeBoardDb = (Board: IModels["Board"]) => {
 
   return Object.freeze({ insert, update, remove, find });
 };
+
+export type BoardDb = ReturnType<typeof makeBoardDb>;
