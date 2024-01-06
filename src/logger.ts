@@ -1,5 +1,5 @@
 import winston from "winston";
-import { BaseError } from "./ErrorHandler";
+import { BaseError } from "./error";
 
 const formatter = winston.format.combine(
   winston.format.colorize({ level: true }),
