@@ -2,7 +2,8 @@ import { type UpdateQuery } from "mongoose";
 import { type IColumn, type IModels } from "../models";
 
 export const makeColumnDb = (Column: IModels["Column"]) => {
-  const insert = async (column: IColumn) => Column.create(column);
+  const insert = async (column: Omit<IColumn, "tasks">) =>
+    Column.create(column);
 
   const update = async (_id: string, updateQuery: UpdateQuery<IColumn>) =>
     Column.updateOne({ _id }, updateQuery);
@@ -13,3 +14,5 @@ export const makeColumnDb = (Column: IModels["Column"]) => {
 
   return Object.freeze({ insert, update, remove, find });
 };
+
+export type ColumnDb = ReturnType<typeof makeColumnDb>;
