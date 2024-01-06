@@ -1,19 +1,6 @@
 import { type Response } from "express";
-import logger from "./logger";
-
-export class BaseError extends Error {
-  constructor(
-    public readonly name: string,
-    public readonly status: number,
-    public readonly isOperational: boolean,
-    message: string,
-    public readonly meta?: Record<string, unknown>,
-  ) {
-    super(message);
-    Object.setPrototypeOf(this, new.target.prototype);
-    Error.captureStackTrace(this);
-  }
-}
+import { BaseError } from "./error-cases";
+import logger from "../logger";
 
 export class ErrorHandler {
   public handleError(error: Error, response: Response) {
