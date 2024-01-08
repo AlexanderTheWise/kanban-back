@@ -18,6 +18,10 @@ export interface IColumn {
   tasks: Types.Array<Types.ObjectId>;
 }
 
+export interface PopulatedColumn extends Omit<IColumn, "tasks"> {
+  tasks: Types.DocumentArray<ITask>;
+}
+
 export interface IBoard {
   user: Types.ObjectId;
   title: string;

@@ -1,5 +1,5 @@
-import { type UpdateQuery } from "mongoose";
-import { type IColumn, type IModels } from "../models";
+import { type Types, type UpdateQuery } from "mongoose";
+import { type ITask, type IColumn, type IModels } from "../models";
 
 export const makeColumnDb = (Column: IModels["Column"]) => {
   const insert = async (column: Omit<IColumn, "tasks">) =>
@@ -12,7 +12,15 @@ export const makeColumnDb = (Column: IModels["Column"]) => {
 
   const find = async (_id: string) => Column.findById(_id);
 
-  return Object.freeze({ insert, update, remove, find });
+  const paginate = async (_id: string, limit: number, skip: number) =>
+    Column.findById(_id)
+      .populate<{ tasks: Types.DocumentArray<ITask> }>({
+        path: "tasks",
+        options: { limit, skip },
+      })
+      .exec();
+
+  return Object.freeze({ insert, update, remove, find, paginate });
 };
 
 export type ColumnDb = ReturnType<typeof makeColumnDb>;
