@@ -25,6 +25,5 @@ const taskSchema = new Schema<ITask>({
   subtasks: [subtaskSchema],
 });
 
+export const Subtask = model("Subtask", subtaskSchema);
 export const Task = model("Task", taskSchema, "tasks");
-
-export default Task;
