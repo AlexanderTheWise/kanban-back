@@ -3,6 +3,10 @@ import { type IUser } from "./types";
 import { Board } from "./Board";
 
 const userSchema = new Schema<IUser>({
+  name: {
+    type: Schema.Types.String,
+    required: true,
+  },
   email: {
     type: Schema.Types.String,
     required: true,
