@@ -29,6 +29,7 @@ export interface IBoard {
 }
 
 export interface IUser {
+  name: string;
   email: string;
   password: string;
   boards: Types.Array<Types.ObjectId>;

@@ -21,10 +21,22 @@ export class NotFoundError extends BaseError {
 export class UnauthorizedError extends BaseError {
   constructor(meta?: Record<string, unknown>) {
     super(
-      "NOT FOUND",
+      "UNAUTHORIZED",
       401,
       true,
       "The request lacks valid authentication credentials for the requested resource.",
+      meta,
+    );
+  }
+}
+
+export class ConflictError extends BaseError {
+  constructor(meta?: Record<string, unknown>) {
+    super(
+      "CONFLICCT",
+      409,
+      true,
+      "The request could not be completed due to a conflict with the current state of the target resource",
       meta,
     );
   }
