@@ -9,7 +9,7 @@ export const makeCreateuser = ({
   const createUser = async ({ body }: CreateUserRequest) => {
     const exists = await userDb.emailExists(body.email);
 
-    if (!exists) {
+    if (exists) {
       throw new ConflictError({ email: body.email });
     }
 
