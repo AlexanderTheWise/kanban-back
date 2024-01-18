@@ -2,11 +2,12 @@ import { type Response } from "express";
 import { BaseError } from "./error-cases";
 import logger from "../logger";
 
-export class ErrorHandler {
+class ErrorHandler {
   public handleError(error: Error, response: Response) {
     logger.error(error);
 
     if (!this.isTrustedError(error)) {
+      response.status(500).json({ message: "Internal server error" });
       process.exit(1);
     }
 
@@ -19,3 +20,5 @@ export class ErrorHandler {
     return error instanceof BaseError ? error.isOperational : false;
   }
 }
+
+export const errorHandler = new ErrorHandler();
