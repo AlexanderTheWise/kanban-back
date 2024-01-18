@@ -22,5 +22,6 @@ module.exports = {
     "no-implicit-coercion": "off",
     "max-params": "off",
     "prefer-arrow-callback": "off",
+    "new-cap": "off",
   },
 };
