@@ -15,7 +15,7 @@ const columnSchema = new Schema<IColumn>({
   tasks: [{ type: Schema.Types.ObjectId, ref: "Task" }],
 });
 
-columnSchema.post(
+columnSchema.pre(
   "deleteOne",
   { document: false, query: true },
   async function () {
@@ -23,7 +23,9 @@ columnSchema.post(
       .findOne(this.getFilter())
       .exec()) as HydratedDocument<IColumn>;
 
-    await Promise.all(column.tasks.map((_id) => Task.deleteOne({ _id })));
+    if (column.tasks.length) {
+      await Promise.all(column.tasks.map((_id) => Task.deleteOne({ _id })));
+    }
   },
 );
 

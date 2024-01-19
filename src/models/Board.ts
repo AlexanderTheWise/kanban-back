@@ -15,7 +15,7 @@ const boardSchema = new Schema<IBoard>({
   columns: [{ type: Schema.Types.ObjectId, ref: "Column" }],
 });
 
-boardSchema.post(
+boardSchema.pre(
   "deleteOne",
   { document: false, query: true },
   async function () {

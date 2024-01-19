@@ -9,6 +9,9 @@ export const makeMoveColumn = ({
   }: MoveColumnRequest) => {
     await boardDb.update(boardId, {
       $pull: { columns: columnId },
+    });
+
+    await boardDb.update(boardId, {
       $push: { columns: { $each: [columnId], $position: position } },
     });
 
