@@ -9,7 +9,7 @@ export const makeAuthorizeUser = ({
   const authorizeUser = (request: AuthorizeUserRequest, next: NextFunction) => {
     const authorization = request.header("authorization");
 
-    if (!authorization || authorization.startsWith("Bearer ")) {
+    if (!authorization || !authorization.startsWith("Bearer ")) {
       throw new UnauthorizedError();
     }
 

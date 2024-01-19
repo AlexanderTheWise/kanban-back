@@ -6,7 +6,7 @@ import {
   type CreateUserRequest,
 } from "../use-cases/user/types";
 
-const userControllers = Object.freeze({
+const userController = Object.freeze({
   register: async (httpRequest: CreateUserRequest) =>
     userService.createUser(httpRequest),
   login: async (httpRequest: AuthenticateUserRequest) =>
@@ -20,4 +20,4 @@ const userControllers = Object.freeze({
   },
 });
 
-export default userControllers;
+export default userController;

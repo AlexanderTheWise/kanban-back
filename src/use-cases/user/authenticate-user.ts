@@ -17,7 +17,7 @@ export const makeAuthenticateUser = ({
       throw new UnauthorizedError({ email: body.email });
     }
 
-    if (await comparePassword(body.password, user.password)) {
+    if (!(await comparePassword(body.password, user.password))) {
       throw new UnauthorizedError();
     }
 
