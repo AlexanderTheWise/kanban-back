@@ -23,7 +23,7 @@ const userSchema = new Schema<IUser>({
   ],
 });
 
-userSchema.post(
+userSchema.pre(
   "deleteOne",
   { document: false, query: true },
   async function () {
@@ -31,7 +31,9 @@ userSchema.post(
       .findOne(this.getQuery)
       .exec()) as HydratedDocument<IUser>;
 
-    await Promise.all(user.boards.map((_id) => Board.deleteOne({ _id })));
+    if (user.boards.length) {
+      await Promise.all(user.boards.map((_id) => Board.deleteOne({ _id })));
+    }
   },
 );
 
