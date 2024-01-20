@@ -4,17 +4,17 @@ import { type CreateTaskRequest, type TaskDependencies } from "./types";
 export const makeCreateTask = ({ columnDb, taskDb }: TaskDependencies) => {
   const createTask = async ({
     body: { title, description },
-    params: { columndId },
+    params: { columnId },
   }: CreateTaskRequest) => {
     const task = {
-      column: new Types.ObjectId(columndId),
+      column: new Types.ObjectId(columnId),
       title,
       description,
     };
 
     const doc = await taskDb.insert(task);
 
-    await columnDb.update(columndId, { $push: { tasks: doc._id } });
+    await columnDb.update(columnId, { $push: { tasks: doc._id } });
 
     return doc.toJSON();
   };

@@ -2,13 +2,13 @@ import { type DeleteTaskRequest, type TaskDependencies } from "./types";
 
 export const makeDeleteTask = ({ columnDb, taskDb }: TaskDependencies) => {
   const deleteTask = async ({
-    params: { columndId, taskId },
+    params: { columnId, taskId },
   }: DeleteTaskRequest) => {
     await taskDb.remove(taskId);
 
-    await columnDb.update(columndId, { $pull: { tasks: taskId } });
+    await columnDb.update(columnId, { $pull: { tasks: taskId } });
 
-    return "Column deleted";
+    return "Task deleted";
   };
 
   return deleteTask;

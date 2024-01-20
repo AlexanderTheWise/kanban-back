@@ -9,7 +9,7 @@ export interface TaskDependencies {
 
 interface TaskRequest extends ApiRequest {
   params: {
-    columndId: string;
+    columnId: string;
     taskId: string;
   };
 }
@@ -38,7 +38,7 @@ export interface MoveTaskRequest extends ApiRequest {
     nextColumnId: string;
   };
   body: {
-    $position: number;
+    position: number;
   };
 }
 

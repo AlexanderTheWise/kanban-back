@@ -4,7 +4,7 @@ export const makeDeleteSubtask = ({ taskDb }: SubtaskDependency) => {
   const deleteSubtask = async ({
     params: { subtaskId, taskId },
   }: DeleteSubtaskRequest) => {
-    await taskDb.update(taskId, { $pull: { subtasks: subtaskId } });
+    await taskDb.update(taskId, { $pull: { subtasks: { _id: subtaskId } } });
 
     return "Subtask deleted";
   };
