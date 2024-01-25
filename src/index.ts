@@ -1,4 +1,4 @@
-import connectToDatabase from "./database";
+import { connectToDatabase } from "./database";
 import startServer from "./app";
 import config from "./config";
 

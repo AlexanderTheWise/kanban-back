@@ -24,7 +24,7 @@ export class UnauthorizedError extends BaseError {
       "UNAUTHORIZED",
       401,
       true,
-      "The request lacks valid authentication credentials for the requested resource.",
+      "The request lacks valid authentication credentials for the requested resource",
       meta,
     );
   }

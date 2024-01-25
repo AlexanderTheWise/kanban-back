@@ -1,4 +1,4 @@
-import { type UpdateQuery, Types } from "mongoose";
+import { type UpdateQuery } from "mongoose";
 import { type ITask, type IModels } from "../models";
 
 export const makeTaskDb = (Task: IModels["Task"]) => {

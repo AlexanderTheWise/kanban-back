@@ -1,4 +1,4 @@
-import express from "express";
+import express, { type RequestHandler } from "express";
 import cors from "cors";
 import morgan from "morgan";
 import compression from "compression";
@@ -8,16 +8,17 @@ import boardRouter from "./routes/board.route";
 import columnRouter from "./routes/column.route";
 import taskRouter from "./routes/task.route";
 
-const app = express();
+export const app = express();
 
 const apiPaths = ["/user", "/board", "/column", "/task"];
 
+app.disable("x-powered-by");
 app.use(cors());
 app.use(morgan("tiny"));
 app.use(express.json());
 app.use(compression());
 app.use(apiPaths[0], userRouter);
-app.use(apiPaths.slice(1), auth);
+app.use(apiPaths.slice(1), auth as RequestHandler);
 app.use(apiPaths[1], boardRouter);
 app.use(apiPaths[2], columnRouter);
 app.use(apiPaths[3], taskRouter);

@@ -1,4 +1,4 @@
-import { connect, set, connection } from "mongoose";
+import { connect, set, connection, disconnect } from "mongoose";
 import logger from "./logger";
 
 const connectToDatabase = async (uri: string) => {
@@ -21,4 +21,25 @@ const connectToDatabase = async (uri: string) => {
   }
 };
 
-export default connectToDatabase;
+const disconnectDatabase = async () => {
+  await disconnect();
+};
+
+const dropDatabase = async () => {
+  await connection.db.dropDatabase();
+};
+
+const emptyAllCollections = async () => {
+  const collections = await connection.db.collections();
+
+  await Promise.all(
+    collections.map(async (collection) => collection.deleteMany({})),
+  );
+};
+
+export {
+  connectToDatabase,
+  disconnectDatabase,
+  dropDatabase,
+  emptyAllCollections,
+};
